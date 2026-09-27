@@ -1,0 +1,9 @@
+[deps]
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+GPUArraysCore = "46192b85-c4d5-4398-a991-12ede77f4527"
+KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
+TandemRNG = "bbf5d0d8-d903-4501-8860-f014e7b03d69"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[sources]
+TandemRNG = {path = "../.."}

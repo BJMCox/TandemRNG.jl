@@ -1,0 +1,12 @@
+*.jl.*.cov
+*.jl.cov
+*.jl.mem
+/lcov.info
+/Manifest*.toml
+/docs/Manifest*.toml
+/docs/build/
+/benchmark/Manifest*.toml
+/test/cuda/Manifest*.toml
+/test/Manifest*.toml
+/test/reactant/Manifest*.toml
+/test/purerngs/Manifest*.toml

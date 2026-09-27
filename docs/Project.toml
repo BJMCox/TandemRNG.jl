@@ -1,0 +1,9 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+TandemRNG = "bbf5d0d8-d903-4501-8860-f014e7b03d69"
+
+[sources]
+TandemRNG = {path = ".."}
+
+[compat]
+Documenter = "1.19.0"
