@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} / ${{ matrix.os }} / ${{ matrix.threads }} threads
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    permissions: # needed to allow julia-actions/cache to proactively delete old caches that it has created
+      actions: write
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {version: '1.10', os: ubuntu-latest, threads: '1'}
+          - {version: '1', os: ubuntu-latest, threads: '4'}
+          - {version: '1', os: macos-latest, threads: '4'}
+          - {version: '1', os: windows-latest, threads: '4'}
+          - {version: 'pre', os: ubuntu-latest, threads: '4'}
+    env:
+      JULIA_NUM_THREADS: ${{ matrix.threads }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: ${{ matrix.version }}
+      - uses: julia-actions/cache@v3
+      - uses: julia-actions/julia-buildpkg@v1
+      - uses: julia-actions/julia-runtest@v1
+        with:
+          coverage: ${{ matrix.version == '1' && matrix.os == 'ubuntu-latest' }}
+      - uses: julia-actions/julia-processcoverage@v1
+        if: matrix.version == '1' && matrix.os == 'ubuntu-latest'
+        with:
+          directories: src,ext
+      - uses: actions/upload-artifact@v7
+        if: matrix.version == '1' && matrix.os == 'ubuntu-latest'
+        with:
+          name: coverage-cpu
+          path: lcov.info
+          if-no-files-found: error
+      - uses: codecov/codecov-action@v7
+        if: matrix.version == '1' && matrix.os == 'ubuntu-latest'
+        with:
+          use_oidc: true
+          files: lcov.info
+          disable_search: true
+          fail_ci_if_error: true

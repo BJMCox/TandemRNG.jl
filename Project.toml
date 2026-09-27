@@ -1,0 +1,41 @@
+name = "TandemRNG"
+uuid = "bbf5d0d8-d903-4501-8860-f014e7b03d69"
+version = "0.1.0"
+authors = ["Jessica Cox <jmcox@posteo.de>"]
+
+[deps]
+MLDataDevices = "7e8f7934-dd98-4c1a-8fe8-92b47a384d40"
+PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[weakdeps]
+AMDGPU = "21141c5a-9bdb-4563-92ae-f87d6854732e"
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+GPUArrays = "0c68f7d7-f131-5f86-a1c3-88cf8149b2d7"
+GPUArraysCore = "46192b85-c4d5-4398-a991-12ede77f4527"
+KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
+Metal = "dde4c033-4e86-420c-a63e-0dd931031962"
+PureRNGs = "2ccaadc3-3d9a-45d4-a2ec-95a2424790b7"
+Reactant = "3c362404-f566-11ee-1572-e11a4b42c853"
+
+[extensions]
+TandemRNGAMDGPUExt = ["AMDGPU", "KernelAbstractions", "GPUArraysCore", "MLDataDevices"]
+TandemRNGCUDAExt = ["CUDA", "KernelAbstractions", "GPUArraysCore", "MLDataDevices"]
+TandemRNGKernelAbstractionsExt = ["KernelAbstractions", "GPUArraysCore"]
+TandemRNGMetalExt = ["Metal", "KernelAbstractions", "GPUArraysCore", "GPUArrays", "MLDataDevices"]
+TandemRNGPureRNGsExt = "PureRNGs"
+TandemRNGReactantExt = "Reactant"
+
+[compat]
+AMDGPU = "2"
+CUDA = "5.8, 6"
+GPUArrays = "11"
+GPUArraysCore = "0.1, 0.2"
+KernelAbstractions = "0.9"
+MLDataDevices = "1.17.10"
+Metal = "1.7"
+PrecompileTools = "1.2"
+PureRNGs = "0.0.1"
+Random = "1"
+Reactant = "0.2.280"
+julia = "1.10"
